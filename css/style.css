@@ -1,0 +1,16 @@
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    background-color: #7678ed;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    color:white;
+}
+header a{
+    text-decoration: none;
+    color: white;
+}
