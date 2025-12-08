@@ -1,0 +1,106 @@
+{
+  "defaultCourses": [
+    {
+      "id": 1,
+      "title": "JavaScript Basics",
+      "description": "Learn the fundamentals of JavaScript programming",
+      "category": "Programming",
+      "difficulty": "beginner",
+      "icon": "fab fa-js",
+      "color": "#f0db4f",
+      "tags": ["javascript", "programming", "web", "beginner"],
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "lessons": [
+        {
+          "id": 101,
+          "title": "Introduction to JavaScript",
+          "type": "video",
+          "content": "PkZNo7MFNFg",
+          "duration": 15,
+          "order": 1,
+          "description": "What is JavaScript and why it's important"
+        },
+        {
+          "id": 102,
+          "title": "Variables and Data Types",
+          "type": "article",
+          "content": "Learn about variables, strings, numbers, booleans, and other data types in JavaScript.",
+          "duration": 20,
+          "order": 2,
+          "description": "Understanding JavaScript data types"
+        },
+        {
+          "id": 103,
+          "title": "Functions Basics",
+          "type": "exercise",
+          "content": "Practice creating and calling functions. Write a function that takes two numbers and returns their sum.",
+          "duration": 25,
+          "order": 3,
+          "description": "Practice writing functions"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Web Design Fundamentals",
+      "description": "Learn the principles of good web design",
+      "category": "Design",
+      "difficulty": "beginner",
+      "icon": "fas fa-paint-brush",
+      "color": "#f72585",
+      "tags": ["design", "web", "ui", "ux", "beginners"],
+      "createdAt": "2024-01-02T00:00:00.000Z",
+      "lessons": [
+        {
+          "id": 201,
+          "title": "What is Web Design?",
+          "type": "video",
+          "content": "1Rs2ND1ryYc",
+          "duration": 18,
+          "order": 1,
+          "description": "Introduction to web design principles"
+        },
+        {
+          "id": 202,
+          "title": "Color Theory",
+          "type": "article",
+          "content": "Learn about color palettes, contrast, and accessibility in web design.",
+          "duration": 22,
+          "order": 2,
+          "description": "Understanding colors in design"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Python for Data Science",
+      "description": "Python programming for data analysis and visualization",
+      "category": "Programming",
+      "difficulty": "intermediate",
+      "icon": "fab fa-python",
+      "color": "#4B8BBE",
+      "tags": ["python", "data", "science", "programming", "analysis"],
+      "createdAt": "2024-01-03T00:00:00.000Z",
+      "lessons": [
+        {
+          "id": 301,
+          "title": "Python Setup and Basics",
+          "type": "video",
+          "content": "rfscVS0vtbw",
+          "duration": 25,
+          "order": 1,
+          "description": "Setting up Python and basic syntax"
+        },
+        {
+          "id": 302,
+          "title": "NumPy Arrays",
+          "type": "article",
+          "content": "Learn about NumPy arrays for numerical computing.",
+          "duration": 30,
+          "order": 2,
+          "description": "Working with numerical data"
+        }
+      ]
+    }
+  ]
+}

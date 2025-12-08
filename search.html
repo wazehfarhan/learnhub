@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Courses - LearnHub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>LearnHub</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="my-courses.html"><i class="fas fa-book"></i> My Courses</a>
+                <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                <a href="search.html" class="active"><i class="fas fa-search"></i> Search</a>
+                <a href="create-course.html" class="btn-create"><i class="fas fa-plus"></i> Create Course</a>
+                <div class="theme-toggle">
+                    <input type="checkbox" id="theme-switch" class="theme-switch">
+                    <label for="theme-switch" class="theme-label">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                        <span class="theme-ball"></span>
+                    </label>
+                </div>
+                <div class="user-profile">
+                    <span id="userLevel">Level 1</span>
+                    <div class="xp-display">
+                        <span id="currentXP">0</span>/<span id="maxXP">100</span> XP
+                    </div>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Search Header -->
+        <section class="search-header glass">
+            <h1><i class="fas fa-search"></i> Search Courses</h1>
+            <p>Find courses by title, description, tags, or category</p>
+            
+            <div class="search-container">
+                <div class="search-box glass">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search for courses...">
+                    <button id="searchButton" class="search-btn">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+                
+                <div class="advanced-search-toggle" onclick="toggleAdvancedSearch()">
+                    <i class="fas fa-sliders-h"></i>
+                    <span>Advanced Filters</span>
+                </div>
+                
+                <div class="advanced-filters glass" id="advancedFilters" style="display: none;">
+                    <div class="filters-grid">
+                        <div class="filter-group">
+                            <label for="categoryFilter"><i class="fas fa-filter"></i> Category</label>
+                            <select id="categoryFilter">
+                                <option value="">All Categories</option>
+                                <option value="Programming">Programming</option>
+                                <option value="Web Development">Web Development</option>
+                                <option value="Design">Design</option>
+                                <option value="Business">Business</option>
+                                <option value="Language">Language</option>
+                                <option value="Music">Music</option>
+                                <option value="Health">Health</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="difficultyFilter"><i class="fas fa-chart-line"></i> Difficulty</label>
+                            <select id="difficultyFilter">
+                                <option value="">All Levels</option>
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="progressFilter"><i class="fas fa-percentage"></i> Progress</label>
+                            <select id="progressFilter">
+                                <option value="">All Progress</option>
+                                <option value="not-started">Not Started</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="sortFilter"><i class="fas fa-sort"></i> Sort By</label>
+                            <select id="sortFilter">
+                                <option value="relevance">Relevance</option>
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="title">Title A-Z</option>
+                                <option value="progress">Progress</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-actions">
+                        <button id="applyFilters" class="btn">
+                            <i class="fas fa-check"></i> Apply Filters
+                        </button>
+                        <button id="clearFilters" class="btn-outline">
+                            <i class="fas fa-times"></i> Clear All
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Results -->
+        <section class="search-results">
+            <div class="results-header">
+                <h2 id="resultsTitle">All Courses</h2>
+                <div class="results-info">
+                    <span id="resultsCount">0</span> courses found
+                    <span class="results-time" id="resultsTime"></span>
+                </div>
+            </div>
+            
+            <div class="results-view">
+                <div class="view-options">
+                    <button class="view-option active" data-view="grid" onclick="setViewMode('grid')">
+                        <i class="fas fa-th-large"></i> Grid
+                    </button>
+                    <button class="view-option" data-view="list" onclick="setViewMode('list')">
+                        <i class="fas fa-list"></i> List
+                    </button>
+                </div>
+            </div>
+            
+            <div class="results-container" id="resultsContainer">
+                <!-- Results will be loaded here -->
+            </div>
+            
+            <div class="empty-results glass" id="emptyResults" style="display: none;">
+                <i class="fas fa-search fa-3x"></i>
+                <h3>No courses found</h3>
+                <p>Try adjusting your search terms or filters</p>
+                <button id="resetSearchBtn" class="btn">
+                    <i class="fas fa-redo"></i> Reset Search
+                </button>
+            </div>
+            
+            <div class="loading-results" id="loadingResults" style="display: none;">
+                <div class="spinner"></div>
+                <p>Searching courses...</p>
+            </div>
+        </section>
+
+        <!-- Popular Tags -->
+        <section class="popular-tags-section glass">
+            <h3><i class="fas fa-tags"></i> Popular Tags</h3>
+            <div class="tags-cloud" id="tagsCloud">
+                <!-- Popular tags will be loaded here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Notification Container -->
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/courses.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>

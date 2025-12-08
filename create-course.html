@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Course - LearnHub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>LearnHub</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="my-courses.html"><i class="fas fa-book"></i> My Courses</a>
+                <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                <a href="search.html"><i class="fas fa-search"></i> Search</a>
+                <a href="create-course.html" class="active btn-create"><i class="fas fa-plus"></i> Create Course</a>
+                <div class="theme-toggle">
+                    <input type="checkbox" id="theme-switch" class="theme-switch">
+                    <label for="theme-switch" class="theme-label">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                        <span class="theme-ball"></span>
+                    </label>
+                </div>
+                <div class="user-profile">
+                    <span id="userLevel">Level 1</span>
+                    <div class="xp-display">
+                        <span id="currentXP">0</span>/<span id="maxXP">100</span> XP
+                    </div>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Header -->
+        <section class="page-header glass">
+            <div class="header-content">
+                <h1><i class="fas fa-plus-circle"></i> Create New Course</h1>
+                <p>Build your own learning path by adding courses and lessons</p>
+            </div>
+            <div class="header-actions">
+                <button id="saveCourseBtn" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Save Course
+                </button>
+                <a href="my-courses.html" class="btn-outline">
+                    <i class="fas fa-times"></i> Cancel
+                </a>
+            </div>
+        </section>
+
+        <!-- Course Form -->
+        <div class="create-course-layout">
+            <!-- Left Column: Course Details -->
+            <div class="course-form-section">
+                <div class="form-card glass">
+                    <h3><i class="fas fa-info-circle"></i> Course Details</h3>
+                    
+                    <div class="form-group">
+                        <label for="courseTitle"><i class="fas fa-heading"></i> Course Title *</label>
+                        <input type="text" id="courseTitle" placeholder="e.g., JavaScript Fundamentals" required>
+                        <div class="form-help">Choose a clear and descriptive title</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="courseDescription"><i class="fas fa-align-left"></i> Description</label>
+                        <textarea id="courseDescription" placeholder="Describe what students will learn..." rows="3"></textarea>
+                        <div class="form-help">Briefly explain the course content and objectives</div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="courseCategory"><i class="fas fa-folder"></i> Category *</label>
+                            <select id="courseCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="Programming">Programming</option>
+                                <option value="Web Development">Web Development</option>
+                                <option value="Design">Design</option>
+                                <option value="Business">Business</option>
+                                <option value="Language">Language</option>
+                                <option value="Music">Music</option>
+                                <option value="Health">Health</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="courseDifficulty"><i class="fas fa-chart-line"></i> Difficulty *</label>
+                            <select id="courseDifficulty" required>
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-tags"></i> Tags</label>
+                        <div class="tags-input-container">
+                            <div class="tags-display" id="tagsDisplay"></div>
+                            <input type="text" id="tagInput" placeholder="Add tags (press Enter)">
+                            <div class="form-help">Add relevant tags to help organize your courses</div>
+                        </div>
+                        <div class="suggested-tags">
+                            <span class="tag-suggestion" onclick="addTag('web')">web</span>
+                            <span class="tag-suggestion" onclick="addTag('programming')">programming</span>
+                            <span class="tag-suggestion" onclick="addTag('design')">design</span>
+                            <span class="tag-suggestion" onclick="addTag('beginners')">beginners</span>
+                            <span class="tag-suggestion" onclick="addTag('advanced')">advanced</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-palette"></i> Course Color & Icon</label>
+                        <div class="color-picker">
+                            <div class="color-options">
+                                <div class="color-option" style="background: #4361ee" data-color="#4361ee" onclick="selectColor('#4361ee')"></div>
+                                <div class="color-option" style="background: #3a0ca3" data-color="#3a0ca3" onclick="selectColor('#3a0ca3')"></div>
+                                <div class="color-option" style="background: #4cc9f0" data-color="#4cc9f0" onclick="selectColor('#4cc9f0')"></div>
+                                <div class="color-option" style="background: #f72585" data-color="#f72585" onclick="selectColor('#f72585')"></div>
+                                <div class="color-option" style="background: #7209b7" data-color="#7209b7" onclick="selectColor('#7209b7')"></div>
+                                <div class="color-option" style="background: #560bad" data-color="#560bad" onclick="selectColor('#560bad')"></div>
+                            </div>
+                            <input type="color" id="customColor" value="#4361ee" hidden>
+                            <div class="icon-selector">
+                                <select id="courseIcon">
+                                    <option value="fas fa-book">Book</option>
+                                    <option value="fas fa-code">Code</option>
+                                    <option value="fas fa-laptop-code">Laptop</option>
+                                    <option value="fas fa-paint-brush">Paint</option>
+                                    <option value="fas fa-music">Music</option>
+                                    <option value="fas fa-language">Language</option>
+                                    <option value="fas fa-chart-line">Chart</option>
+                                    <option value="fas fa-heart">Health</option>
+                                    <option value="fas fa-calculator">Math</option>
+                                    <option value="fas fa-flask">Science</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lessons Management -->
+                <div class="form-card glass">
+                    <div class="card-header">
+                        <h3><i class="fas fa-list-ol"></i> Lessons</h3>
+                        <button type="button" class="btn" onclick="addLesson()">
+                            <i class="fas fa-plus"></i> Add Lesson
+                        </button>
+                    </div>
+                    
+                    <div class="lessons-list" id="lessonsList">
+                        <!-- Lessons will be added here -->
+                        <div class="empty-lessons">
+                            <i class="fas fa-video fa-3x"></i>
+                            <p>No lessons added yet</p>
+                            <p class="small">Add your first lesson to get started</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-help">
+                        <i class="fas fa-lightbulb"></i> Tip: You can add YouTube videos, external links, or text-based lessons
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Preview -->
+            <div class="preview-section">
+                <div class="preview-card glass">
+                    <h3><i class="fas fa-eye"></i> Course Preview</h3>
+                    <div class="course-preview" id="coursePreview">
+                        <div class="preview-image" id="previewImage">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="preview-content">
+                            <h4 id="previewTitle">Course Title</h4>
+                            <p id="previewDescription">Course description will appear here</p>
+                            <div class="preview-meta">
+                                <span class="preview-category" id="previewCategory">Category</span>
+                                <span class="preview-difficulty" id="previewDifficulty">Beginner</span>
+                            </div>
+                            <div class="preview-tags" id="previewTags"></div>
+                            <div class="preview-lessons">
+                                <i class="fas fa-list-check"></i>
+                                <span id="previewLessonCount">0 lessons</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Tips -->
+                <div class="tips-card glass">
+                    <h3><i class="fas fa-lightbulb"></i> Quick Tips</h3>
+                    <ul class="tips-list">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Keep course titles clear and descriptive</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Add relevant tags for better organization</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Break content into bite-sized lessons</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Use YouTube video IDs for video lessons</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Add practice exercises for better learning</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Lesson Form (Hidden by default) -->
+                <div class="lesson-form-card glass" id="lessonForm" style="display: none;">
+                    <div class="card-header">
+                        <h3><i class="fas fa-plus-circle"></i> Add Lesson</h3>
+                        <button type="button" class="btn-outline" onclick="cancelLesson()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lessonTitle">Lesson Title *</label>
+                        <input type="text" id="lessonTitle" placeholder="e.g., Introduction to Variables">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lessonType">Lesson Type</label>
+                        <select id="lessonType" onchange="toggleLessonFields()">
+                            <option value="video">YouTube Video</option>
+                            <option value="article">Article/Text</option>
+                            <option value="link">External Link</option>
+                            <option value="exercise">Practice Exercise</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="videoField">
+                        <label for="videoUrl">YouTube Video ID or URL</label>
+                        <input type="text" id="videoUrl" placeholder="e.g., dQw4w9WgXcQ or full URL">
+                        <div class="form-help">Enter YouTube video ID or full URL</div>
+                    </div>
+                    
+                    <div class="form-group" id="contentField" style="display: none;">
+                        <label for="lessonContent">Lesson Content</label>
+                        <textarea id="lessonContent" placeholder="Write your lesson content here..." rows="5"></textarea>
+                    </div>
+                    
+                    <div class="form-group" id="linkField" style="display: none;">
+                        <label for="externalLink">External Link</label>
+                        <input type="url" id="externalLink" placeholder="https://example.com/lesson">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lessonDuration">Duration (minutes)</label>
+                            <input type="number" id="lessonDuration" min="1" max="300" value="15">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="lessonOrder">Order</label>
+                            <input type="number" id="lessonOrder" min="1" value="1">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lessonDescription">Description (Optional)</label>
+                        <textarea id="lessonDescription" placeholder="Brief description of this lesson..." rows="2"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-outline" onclick="cancelLesson()">
+                            Cancel
+                        </button>
+                        <button type="button" class="btn" onclick="saveLesson()">
+                            <i class="fas fa-save"></i> Save Lesson
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Notification Container -->
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/courses.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/create-course.js"></script>
+</body>
+</html>

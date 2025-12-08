@@ -1,0 +1,83 @@
+/* Light Theme (Default) */
+.light-theme {
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --bg-primary: #f9fafb;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f3f4f6;
+    
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Dark Theme */
+.dark-theme {
+    --primary-color: #6366f1;
+    --primary-light: #818cf8;
+    --secondary-color: #4f46e5;
+    --accent-color: #06b6d4;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --bg-primary: #111827;
+    --bg-secondary: #1f2937;
+    --bg-tertiary: #374151;
+    
+    --glass-bg: rgba(31, 41, 55, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.dark-theme .glass-nav {
+    background: rgba(31, 41, 55, 0.8);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark-theme .course-card,
+.dark-theme .continue-card,
+.dark-theme .template-card,
+.dark-theme .stat-card {
+    background: var(--bg-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark-theme .tag {
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+}
+
+.dark-theme .xp-display {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.dark-theme .theme-label {
+    background: var(--text-primary);
+}
+
+.dark-theme .notification {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.dark-theme .empty-state {
+    background: var(--bg-secondary);
+}
+
+.dark-theme .btn-outline {
+    border-color: var(--primary-light);
+    color: var(--primary-light);
+}
+
+.dark-theme .btn-outline:hover {
+    background: var(--primary-light);
+    color: var(--text-primary);
+}

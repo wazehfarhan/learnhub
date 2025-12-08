@@ -1,0 +1,78 @@
+{
+  "name": "LearnHub - Learning Platform",
+  "short_name": "LearnHub",
+  "description": "Create, track, and manage your learning courses",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f9fafb",
+  "theme_color": "#4361ee",
+  "icons": [
+    {
+      "src": "icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "en-US",
+  "categories": ["education", "productivity", "utilities"],
+  "shortcuts": [
+    {
+      "name": "Create New Course",
+      "short_name": "Create",
+      "description": "Create a new learning course",
+      "url": "/create-course.html",
+      "icons": [{ "src": "icons/plus-icon.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "My Courses",
+      "short_name": "Courses",
+      "description": "View your courses",
+      "url": "/my-courses.html",
+      "icons": [{ "src": "icons/courses-icon.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Dashboard",
+      "short_name": "Stats",
+      "description": "View learning statistics",
+      "url": "/dashboard.html",
+      "icons": [{ "src": "icons/stats-icon.png", "sizes": "96x96" }]
+    }
+  ]
+}

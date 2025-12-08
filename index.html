@@ -3,23 +3,331 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learn Hub</title>
+    <title>LearnHub - Your Personal Learning Platform</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
-    <header>
-        <a href="#">
-            <img src="images/logo.png" alt="LearnHub" width="100">
-        </a>        
-        <a href="#" class="logo">LearnHub</a>
-        <a href="#" class="active">Home</a>
-        <a href="#">About Us</a>
-        <a href="#">Courses</a>
-        <a href="#">Pages</a>
-        <a href="#">Blog</a>
-        <a href="#">Contact</a>
-    </header>
+    <!-- Navigation -->
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>LearnHub</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
+                <a href="my-courses.html"><i class="fas fa-book"></i> My Courses</a>
+                <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                <a href="search.html"><i class="fas fa-search"></i> Search</a>
+                <a href="create-course.html" class="btn-create"><i class="fas fa-plus"></i> Create Course</a>
+                <div class="theme-toggle">
+                    <input type="checkbox" id="theme-switch" class="theme-switch">
+                    <label for="theme-switch" class="theme-label">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                        <span class="theme-ball"></span>
+                    </label>
+                </div>
+                <div class="user-profile">
+                    <span id="userLevel">Level 1</span>
+                    <div class="xp-display">
+                        <span id="currentXP">0</span>/<span id="maxXP">100</span> XP
+                    </div>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
 
-    <footer></footer>
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero glass">
+            <div class="hero-content">
+                <h1 class="fade-in">Create, Learn, Track</h1>
+                <p class="fade-in delay-1">Build your own learning path with custom courses and track your progress</p>
+                
+                <div class="hero-actions fade-in delay-2">
+                    <a href="create-course.html" class="btn btn-primary">
+                        <i class="fas fa-plus-circle"></i> Create Your First Course
+                    </a>
+                    <a href="my-courses.html" class="btn-outline">
+                        <i class="fas fa-book-open"></i> View My Courses
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Stats -->
+        <section class="quick-stats-grid">
+            <div class="stat-card glass scale-hover">
+                <div class="stat-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="totalCoursesCount">0</h3>
+                    <p>Total Courses</p>
+                </div>
+            </div>
+            
+            <div class="stat-card glass scale-hover">
+                <div class="stat-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="completedLessonsCount">0</h3>
+                    <p>Lessons Completed</p>
+                </div>
+            </div>
+            
+            <div class="stat-card glass scale-hover">
+                <div class="stat-icon">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="currentStreak">0</h3>
+                    <p>Day Streak</p>
+                </div>
+            </div>
+            
+            <div class="stat-card glass scale-hover">
+                <div class="stat-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="achievementsCount">0</h3>
+                    <p>Achievements</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Daily Motivation -->
+        <section class="motivation-section">
+            <div class="motivation-card glass scale-hover">
+                <div class="quote-icon">
+                    <i class="fas fa-quote-left"></i>
+                </div>
+                <p id="dailyQuote">"The capacity to learn is a gift; the ability to learn is a skill; the willingness to learn is a choice."</p>
+                <div class="quote-author">- Brian Herbert</div>
+                <button id="newQuoteBtn" class="btn-outline">
+                    <i class="fas fa-sync-alt"></i> New Quote
+                </button>
+            </div>
+        </section>
+
+        <!-- My Recent Courses -->
+        <section class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-history"></i> Recently Added Courses</h2>
+                <a href="my-courses.html" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="courses-grid" id="recentCoursesGrid"></div>
+        </section>
+
+        <!-- Continue Learning -->
+        <section class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-play-circle"></i> Continue Learning</h2>
+            </div>
+            <div class="continue-learning" id="continueLearning"></div>
+        </section>
+
+        <!-- Featured Templates -->
+        <section class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-th-large"></i> Course Templates</h2>
+                <p>Start with these templates or create your own</p>
+            </div>
+            <div class="templates-grid" id="templatesGrid"></div>
+        </section>
+    </main>
+
+    <!-- Notification Container -->
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/courses.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+            updateQuickStats();
+            loadRecentCourses();
+            loadContinueLearning();
+            loadTemplates();
+            
+            // Daily quote
+            const quotes = [
+                {text: "The beautiful thing about learning is that no one can take it away from you.", author: "B.B. King"},
+                {text: "Education is the passport to the future, for tomorrow belongs to those who prepare for it today.", author: "Malcolm X"},
+                {text: "Learning is not attained by chance, it must be sought for with ardor and attended to with diligence.", author: "Abigail Adams"},
+                {text: "The more that you read, the more things you will know. The more that you learn, the more places you'll go.", author: "Dr. Seuss"},
+                {text: "Live as if you were to die tomorrow. Learn as if you were to live forever.", author: "Mahatma Gandhi"}
+            ];
+            
+            document.getElementById('newQuoteBtn').addEventListener('click', function() {
+                const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+                document.getElementById('dailyQuote').textContent = `"${randomQuote.text}"`;
+                document.querySelector('.quote-author').textContent = `- ${randomQuote.author}`;
+            });
+        });
+
+        function updateQuickStats() {
+            const stats = storage.getUserStats();
+            document.getElementById('totalCoursesCount').textContent = stats.totalCourses || 0;
+            document.getElementById('completedLessonsCount').textContent = stats.completedLessons || 0;
+            document.getElementById('currentStreak').textContent = stats.streak || 0;
+            document.getElementById('achievementsCount').textContent = stats.badges || 0;
+        }
+
+        function loadRecentCourses() {
+            const userCourses = storage.getUserCourses();
+            const container = document.getElementById('recentCoursesGrid');
+            
+            if (!container) return;
+            
+            if (userCourses.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state glass">
+                        <i class="fas fa-book fa-3x"></i>
+                        <h3>No Courses Yet</h3>
+                        <p>Create your first course to start learning!</p>
+                        <a href="create-course.html" class="btn">Create Course</a>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Show recent 4 courses
+            const recentCourses = userCourses.slice(-4).reverse();
+            container.innerHTML = '';
+            recentCourses.forEach(course => {
+                const progress = storage.getCourseProgress(course.id);
+                const card = courseManager.renderCourseCard(course, progress);
+                container.appendChild(card);
+            });
+        }
+
+        function loadContinueLearning() {
+            const recentProgress = storage.getRecentProgress();
+            const container = document.getElementById('continueLearning');
+            
+            if (!container) return;
+            
+            if (recentProgress.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state glass">
+                        <i class="fas fa-play-circle fa-3x"></i>
+                        <h3>Start Learning</h3>
+                        <p>Begin a course to continue from where you left off</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = '';
+            recentProgress.forEach(item => {
+                const course = storage.getCourseById(item.courseId);
+                if (course) {
+                    const continueCard = document.createElement('div');
+                    continueCard.className = 'continue-card glass scale-hover';
+                    continueCard.innerHTML = `
+                        <div class="continue-image">
+                            <i class="${course.icon || 'fas fa-book'}"></i>
+                        </div>
+                        <div class="continue-content">
+                            <h4>${course.title}</h4>
+                            <p>${course.lessons?.[item.lastLessonIndex]?.title || 'Continue learning'}</p>
+                            <div class="continue-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: ${item.progress}%"></div>
+                                </div>
+                                <span>${item.progress}% complete</span>
+                            </div>
+                        </div>
+                        <button class="btn" onclick="viewCourse(${course.id})">
+                            Continue <i class="fas fa-arrow-right"></i>
+                        </button>
+                    `;
+                    container.appendChild(continueCard);
+                }
+            });
+        }
+
+        function loadTemplates() {
+            const templates = [
+                {
+                    id: 'web-dev',
+                    title: 'Web Development',
+                    description: 'Full-stack web development learning path',
+                    icon: 'fas fa-code',
+                    color: '#4361ee',
+                    lessons: 12
+                },
+                {
+                    id: 'data-science',
+                    title: 'Data Science',
+                    description: 'Python, ML, and data analysis',
+                    icon: 'fas fa-chart-line',
+                    color: '#3a0ca3',
+                    lessons: 10
+                },
+                {
+                    id: 'design',
+                    title: 'UI/UX Design',
+                    description: 'Learn design principles and tools',
+                    icon: 'fas fa-paint-brush',
+                    color: '#f72585',
+                    lessons: 8
+                },
+                {
+                    id: 'language',
+                    title: 'Language Learning',
+                    description: 'Structured language learning course',
+                    icon: 'fas fa-language',
+                    color: '#4cc9f0',
+                    lessons: 15
+                }
+            ];
+            
+            const container = document.getElementById('templatesGrid');
+            if (!container) return;
+            
+            container.innerHTML = templates.map(template => `
+                <div class="template-card glass scale-hover" onclick="useTemplate('${template.id}')">
+                    <div class="template-icon" style="background: ${template.color}">
+                        <i class="${template.icon}"></i>
+                    </div>
+                    <div class="template-content">
+                        <h4>${template.title}</h4>
+                        <p>${template.description}</p>
+                        <div class="template-meta">
+                            <span><i class="fas fa-list-check"></i> ${template.lessons} lessons</span>
+                        </div>
+                    </div>
+                    <div class="template-action">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function useTemplate(templateId) {
+            window.location.href = `create-course.html?template=${templateId}`;
+        }
+
+        function viewCourse(courseId) {
+            window.location.href = `course.html?id=${courseId}`;
+        }
+    </script>
 </body>
 </html>

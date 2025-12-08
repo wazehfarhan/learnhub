@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - LearnHub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>LearnHub</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="my-courses.html"><i class="fas fa-book"></i> My Courses</a>
+                <a href="dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                <a href="search.html"><i class="fas fa-search"></i> Search</a>
+                <a href="create-course.html" class="btn-create"><i class="fas fa-plus"></i> Create Course</a>
+                <div class="theme-toggle">
+                    <input type="checkbox" id="theme-switch" class="theme-switch">
+                    <label for="theme-switch" class="theme-label">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                        <span class="theme-ball"></span>
+                    </label>
+                </div>
+                <div class="user-profile">
+                    <span id="userLevel">Level 1</span>
+                    <div class="xp-display">
+                        <span id="currentXP">0</span>/<span id="maxXP">100</span> XP
+                    </div>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Welcome Section -->
+        <section class="welcome-section glass">
+            <div class="welcome-content">
+                <h1>Welcome back, <span id="userName">Learner</span>! 👋</h1>
+                <p>Track your learning progress and continue your journey</p>
+            </div>
+            <div class="welcome-actions">
+                <button class="btn-outline" onclick="refreshDashboard()">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+                <div class="dropdown">
+                    <button class="btn-outline dropdown-toggle">
+                        <i class="fas fa-download"></i> Export Data
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" onclick="exportData()">Export All Data</a>
+                        <a href="#" onclick="exportProgress()">Export Progress</a>
+                        <a href="#" onclick="importDataPrompt()">Import Data</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Stats -->
+        <section class="quick-stats-grid">
+            <div class="stat-card glass scale-hover">
+                <div class="stat-icon" style="background: #4361ee">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="totalCourses">0</h3>
+                    <p>Total Courses</p>
+                </div>
+            </div>
+            
+            <div class="stat-card glass scale-hover">
+                <div class="stat-icon" style="background: #3a0ca3">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="completedLessons">0</h3>
+                    <p>Lessons Completed</p>
+                </div>
+            </div>
+            
+            <div class="stat-card glass scale-hover">
+                <div class="stat-icon" style="background: #f72585">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="currentStreak">0</h3>
+                    <p>Day Streak</p>
+                </div>
+            </div>
+            
+            <div class="stat-card glass scale-hover">
+                <div class="stat-icon" style="background: #4cc9f0">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="achievementsCount">0</h3>
+                    <p>Achievements</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="dashboard-layout">
+            <!-- Left Column -->
+            <div class="dashboard-main">
+                <!-- Progress Chart -->
+                <section class="dashboard-card glass">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-line"></i> Learning Progress</h3>
+                        <select id="timeRange" onchange="updateProgressChart()">
+                            <option value="7">Last 7 Days</option>
+                            <option value="30" selected>Last 30 Days</option>
+                            <option value="90">Last 3 Months</option>
+                            <option value="365">Last Year</option>
+                        </select>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="progressChart"></canvas>
+                    </div>
+                </section>
+
+                <!-- Recent Activity -->
+                <section class="dashboard-card glass">
+                    <div class="card-header">
+                        <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                        <button class="btn-outline btn-sm" onclick="clearActivity()">
+                            <i class="fas fa-trash"></i> Clear
+                        </button>
+                    </div>
+                    <div class="activity-list" id="activityList">
+                        <!-- Activities will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Continue Learning -->
+                <section class="dashboard-card glass">
+                    <div class="card-header">
+                        <h3><i class="fas fa-play-circle"></i> Continue Learning</h3>
+                    </div>
+                    <div class="continue-list" id="continueList">
+                        <!-- Continue courses will be loaded here -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column -->
+            <div class="dashboard-sidebar">
+                <!-- XP Progress -->
+                <section class="dashboard-card glass">
+                    <h3><i class="fas fa-star"></i> XP Progress</h3>
+                    <div class="xp-progress">
+                        <div class="xp-bar">
+                            <div class="xp-fill" id="xpFill"></div>
+                        </div>
+                        <div class="xp-info">
+                            <span id="currentXPDisplay">0</span> / 
+                            <span id="maxXPDisplay">100</span> XP
+                            <span class="xp-level">Level <span id="currentLevel">1</span></span>
+                        </div>
+                    </div>
+                    <div class="xp-next">
+                        <i class="fas fa-arrow-right"></i>
+                        <span>Next level: <strong id="nextLevelXP">100</strong> XP needed</span>
+                    </div>
+                </section>
+
+                <!-- Daily Goal -->
+                <section class="dashboard-card glass">
+                    <h3><i class="fas fa-bullseye"></i> Daily Goal</h3>
+                    <div class="goal-progress">
+                        <div class="goal-bar">
+                            <div class="goal-fill" id="goalFill"></div>
+                        </div>
+                        <div class="goal-info">
+                            <span id="goalProgress">0</span>/<span id="goalTarget">3</span> lessons today
+                        </div>
+                    </div>
+                    <div class="goal-actions">
+                        <button class="btn-outline btn-sm" onclick="updateDailyGoal()">
+                            <i class="fas fa-edit"></i> Edit Goal
+                        </button>
+                        <button class="btn-outline btn-sm" onclick="markGoalComplete()">
+                            <i class="fas fa-check"></i> Mark Complete
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Achievements -->
+                <section class="dashboard-card glass">
+                    <div class="card-header">
+                        <h3><i class="fas fa-trophy"></i> Achievements</h3>
+                        <span class="badge-count" id="badgeCount">0</span>
+                    </div>
+                    <div class="achievements-list" id="achievementsList">
+                        <!-- Achievements will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Study Stats -->
+                <section class="dashboard-card glass">
+                    <h3><i class="fas fa-chart-pie"></i> Study Stats</h3>
+                    <div class="study-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <span id="totalStudyTime">0</span>
+                                <small>Study Time</small>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-calendar"></i>
+                            <div>
+                                <span id="studyDays">0</span>
+                                <small>Study Days</small>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-percentage"></i>
+                            <div>
+                                <span id="completionRate">0%</span>
+                                <small>Completion</small>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-bolt"></i>
+                            <div>
+                                <span id="averageDaily">0</span>
+                                <small>Daily Avg</small>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Import Data Modal -->
+    <div class="modal" id="importModal">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h3><i class="fas fa-upload"></i> Import Data</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="import-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Warning: Importing data will overwrite your current data. Make sure to export your data first if you want to keep it.</p>
+                </div>
+                <div class="form-group">
+                    <label for="importFile">Select JSON file to import</label>
+                    <input type="file" id="importFile" accept=".json">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline" onclick="closeModal('importModal')">Cancel</button>
+                <button class="btn" onclick="importData()">Import</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/courses.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

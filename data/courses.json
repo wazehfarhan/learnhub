@@ -1,0 +1,248 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "title": "JavaScript Fundamentals",
+      "description": "Learn the basics of JavaScript programming language from scratch. Perfect for beginners.",
+      "category": "Programming",
+      "difficulty": "beginner",
+      "duration": "8 hours",
+      "videoUrl": "https://www.youtube.com/embed/PkZNo7MFNFg",
+      "thumbnail": "JS",
+      "trending": true,
+      "lessons": [
+        {
+          "id": 1,
+          "title": "Introduction to JavaScript",
+          "duration": "15 min",
+          "videoId": "PkZNo7MFNFg",
+          "completed": false,
+          "notes": ""
+        },
+        {
+          "id": 2,
+          "title": "Variables and Data Types",
+          "duration": "20 min",
+          "videoId": "W6NZfCO5SIk",
+          "completed": false,
+          "notes": ""
+        },
+        {
+          "id": 3,
+          "title": "Functions and Scope",
+          "duration": "25 min",
+          "videoId": "Mus_vwhTCq0",
+          "completed": false,
+          "notes": ""
+        },
+        {
+          "id": 4,
+          "title": "Arrays and Objects",
+          "duration": "30 min",
+          "videoId": "R8rmfD9Y5-c",
+          "completed": false,
+          "notes": ""
+        }
+      ],
+      "tags": ["JavaScript", "Web Development", "Programming", "Beginner"]
+    },
+    {
+      "id": 2,
+      "title": "Advanced CSS Techniques",
+      "description": "Master advanced CSS concepts including Grid, Flexbox, animations, and responsive design.",
+      "category": "Web Design",
+      "difficulty": "intermediate",
+      "duration": "10 hours",
+      "videoUrl": "https://www.youtube.com/embed/1Rs2ND1ryYc",
+      "thumbnail": "CSS",
+      "trending": true,
+      "lessons": [
+        {
+          "id": 1,
+          "title": "CSS Grid Layout",
+          "duration": "30 min",
+          "videoId": "9zBsdzdE4sM",
+          "completed": false,
+          "notes": ""
+        },
+        {
+          "id": 2,
+          "title": "Flexbox Fundamentals",
+          "duration": "25 min",
+          "videoId": "JJSoEo8JSnc",
+          "completed": false,
+          "notes": ""
+        },
+        {
+          "id": 3,
+          "title": "CSS Animations",
+          "duration": "35 min",
+          "videoId": "YszONjKpgg4",
+          "completed": false,
+          "notes": ""
+        }
+      ],
+      "tags": ["CSS", "Web Design", "Frontend", "Responsive"]
+    },
+    {
+      "id": 3,
+      "title": "React for Beginners",
+      "description": "Build modern web applications with React. Learn components, state, hooks, and more.",
+      "category": "Web Development",
+      "difficulty": "intermediate",
+      "duration": "12 hours",
+      "videoUrl": "https://www.youtube.com/embed/SqcY0GlETPk",
+      "thumbnail": "React",
+      "trending": true,
+      "lessons": [
+        {
+          "id": 1,
+          "title": "React Components",
+          "duration": "25 min",
+          "videoId": "w7ejDZ8SWv8",
+          "completed": false,
+          "notes": ""
+        },
+        {
+          "id": 2,
+          "title": "State and Props",
+          "duration": "30 min",
+          "videoId": "dQw4w9WgXcQ",
+          "completed": false,
+          "notes": ""
+        },
+        {
+          "id": 3,
+          "title": "React Hooks",
+          "duration": "40 min",
+          "videoId": "TNhaISOUy6Q",
+          "completed": false,
+          "notes": ""
+        }
+      ],
+      "tags": ["React", "JavaScript", "Frontend", "Web Development"]
+    },
+    {
+      "id": 4,
+      "title": "Python Data Science",
+      "description": "Learn Python for data analysis, visualization, and machine learning basics.",
+      "category": "Data Science",
+      "difficulty": "advanced",
+      "duration": "15 hours",
+      "videoUrl": "https://www.youtube.com/embed/rfscVS0vtbw",
+      "thumbnail": "Python",
+      "trending": false,
+      "lessons": [
+        {
+          "id": 1,
+          "title": "Python Basics",
+          "duration": "30 min",
+          "videoId": "rfscVS0vtbw",
+          "completed": false,
+          "notes": ""
+        },
+        {
+          "id": 2,
+          "title": "NumPy Arrays",
+          "duration": "35 min",
+          "videoId": "QUT1VHiLmmI",
+          "completed": false,
+          "notes": ""
+        },
+        {
+          "id": 3,
+          "title": "Pandas DataFrames",
+          "duration": "40 min",
+          "videoId": "vmEHCJofslg",
+          "completed": false,
+          "notes": ""
+        }
+      ],
+      "tags": ["Python", "Data Science", "Machine Learning", "AI"]
+    },
+    {
+      "id": 5,
+      "title": "UI/UX Design Principles",
+      "description": "Learn the fundamentals of user interface and user experience design.",
+      "category": "Design",
+      "difficulty": "beginner",
+      "duration": "6 hours",
+      "videoUrl": "https://www.youtube.com/embed/c9Wg6Cb_YlU",
+      "thumbnail": "Design",
+      "trending": false,
+      "lessons": [
+        {
+          "id": 1,
+          "title": "Introduction to UX",
+          "duration": "20 min",
+          "videoId": "Ovj4hFxko7c",
+          "completed": false,
+          "notes": ""
+        },
+        {
+          "id": 2,
+          "title": "User Research Methods",
+          "duration": "25 min",
+          "videoId": "vWkE6LSpC24",
+          "completed": false,
+          "notes": ""
+        },
+        {
+          "id": 3,
+          "title": "Wireframing and Prototyping",
+          "duration": "30 min",
+          "videoId": "qpH7-KFWZRI",
+          "completed": false,
+          "notes": ""
+        }
+      ],
+      "tags": ["UI/UX", "Design", "Figma", "Prototyping"]
+    },
+    {
+      "id": 6,
+      "title": "Node.js Backend Development",
+      "description": "Build scalable server-side applications with Node.js and Express.",
+      "category": "Backend",
+      "difficulty": "advanced",
+      "duration": "14 hours",
+      "videoUrl": "https://www.youtube.com/embed/RLtyhwFtXQA",
+      "thumbnail": "Node",
+      "trending": true,
+      "lessons": [
+        {
+          "id": 1,
+          "title": "Node.js Setup",
+          "duration": "20 min",
+          "videoId": "TlB_eWDSMt4",
+          "completed": false,
+          "notes": ""
+        },
+        {
+          "id": 2,
+          "title": "Express Framework",
+          "duration": "30 min",
+          "videoId": "SccSCuHhOw0",
+          "completed": false,
+          "notes": ""
+        },
+        {
+          "id": 3,
+          "title": "REST API Design",
+          "duration": "40 min",
+          "videoId": "pKd0Rpw7O48",
+          "completed": false,
+          "notes": ""
+        }
+      ],
+      "tags": ["Node.js", "Backend", "JavaScript", "API"]
+    }
+  ],
+  "categories": [
+    { "name": "Programming", "icon": "fas fa-code", "count": 3 },
+    { "name": "Web Development", "icon": "fas fa-laptop-code", "count": 3 },
+    { "name": "Web Design", "icon": "fas fa-paint-brush", "count": 2 },
+    { "name": "Data Science", "icon": "fas fa-chart-line", "count": 1 },
+    { "name": "Design", "icon": "fas fa-palette", "count": 1 },
+    { "name": "Backend", "icon": "fas fa-server", "count": 1 }
+  ]
+}
