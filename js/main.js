@@ -1,5 +1,7 @@
-// Main JavaScript for shared functionality
+// Main JavaScript - FIXED VERSION
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('LearnHub initialized');
+    
     // Initialize theme
     const savedTheme = storage.getCurrentTheme();
     storage.applyTheme(savedTheme);
@@ -28,11 +30,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Check for notifications
     checkFirstTimeUser();
+    
+    // Log initialization
+    console.log('Main functionality initialized');
 });
 
 // Update user info in navigation
 function updateUserInfo() {
     const data = storage.getUserData();
+    if (!data || !data.user) return;
     
     // Update level and XP
     const levelEl = document.getElementById('userLevel');
@@ -44,32 +50,28 @@ function updateUserInfo() {
     if (maxXpEl) maxXpEl.textContent = data.user.maxXP;
 }
 
-// Setup mobile menu
+// Setup mobile menu - FIXED with event delegation
 function setupMobileMenu() {
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
     
     if (mobileMenuBtn && navLinks) {
-        mobileMenuBtn.addEventListener('click', function() {
-            navLinks.classList.toggle('active');
-            this.innerHTML = navLinks.classList.contains('active') ? 
-                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-        });
-        
-        // Close menu when clicking outside
+        // Use event delegation for better reliability
         document.addEventListener('click', function(e) {
-            if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+            if (e.target.closest('.mobile-menu-btn')) {
+                navLinks.classList.toggle('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon) {
+                    icon.className = navLinks.classList.contains('active') ? 
+                        'fas fa-times' : 'fas fa-bars';
+                }
+            } else if (!e.target.closest('.nav-links') && navLinks.classList.contains('active')) {
                 navLinks.classList.remove('active');
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon) {
+                    icon.className = 'fas fa-bars';
+                }
             }
-        });
-        
-        // Close menu when clicking a link
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            });
         });
     }
 }
@@ -101,12 +103,16 @@ function loadUserData() {
 
 // Format date
 function formatDate(dateString) {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric'
-    });
+    try {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric'
+        });
+    } catch (error) {
+        return 'Unknown date';
+    }
 }
 
 // Format time
@@ -161,49 +167,82 @@ function throttle(func, limit) {
 // Show loading spinner
 function showLoading(element) {
     if (element) {
+        const originalContent = element.innerHTML;
+        element.setAttribute('data-original-content', originalContent);
         element.innerHTML = '<div class="spinner"></div>';
         element.classList.add('loading');
     }
 }
 
 // Hide loading spinner
-function hideLoading(element, content) {
+function hideLoading(element) {
     if (element) {
         element.classList.remove('loading');
-        if (content) {
-            element.innerHTML = content;
+        const originalContent = element.getAttribute('data-original-content');
+        if (originalContent) {
+            element.innerHTML = originalContent;
+            element.removeAttribute('data-original-content');
         }
     }
 }
 
 // Get URL parameters
 function getUrlParams() {
-    const params = new URLSearchParams(window.location.search);
-    const result = {};
-    
-    for (const [key, value] of params) {
-        result[key] = value;
+    try {
+        const params = new URLSearchParams(window.location.search);
+        const result = {};
+        
+        for (const [key, value] of params) {
+            result[key] = value;
+        }
+        
+        return result;
+    } catch (error) {
+        console.error('Error getting URL params:', error);
+        return {};
     }
-    
-    return result;
 }
 
 // Set URL parameter
 function setUrlParam(key, value) {
-    const url = new URL(window.location);
-    url.searchParams.set(key, value);
-    window.history.pushState({}, '', url);
+    try {
+        const url = new URL(window.location);
+        url.searchParams.set(key, value);
+        window.history.pushState({}, '', url);
+    } catch (error) {
+        console.error('Error setting URL param:', error);
+    }
 }
 
 // Remove URL parameter
 function removeUrlParam(key) {
-    const url = new URL(window.location);
-    url.searchParams.delete(key);
-    window.history.pushState({}, '', url);
+    try {
+        const url = new URL(window.location);
+        url.searchParams.delete(key);
+        window.history.pushState({}, '', url);
+    } catch (error) {
+        console.error('Error removing URL param:', error);
+    }
 }
 
 // Copy to clipboard
 function copyToClipboard(text) {
+    if (!navigator.clipboard) {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            storage.showNotification('Copied to clipboard!', 'success');
+        } catch (err) {
+            storage.showNotification('Failed to copy', 'error');
+        }
+        document.body.removeChild(textArea);
+        return;
+    }
+    
     navigator.clipboard.writeText(text).then(() => {
         storage.showNotification('Copied to clipboard!', 'success');
     }).catch(err => {
@@ -224,13 +263,16 @@ function validateYouTubeUrl(url) {
 
 // Extract YouTube video ID
 function extractYouTubeId(url) {
-    const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    if (!url) return null;
+    
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
-    return (match && match[7].length === 11) ? match[7] : false;
+    return (match && match[2].length === 11) ? match[2] : url;
 }
 
 // Truncate text
 function truncateText(text, maxLength) {
+    if (!text) return '';
     if (text.length <= maxLength) return text;
     return text.substr(0, maxLength) + '...';
 }
@@ -247,7 +289,11 @@ function getRandomColor() {
 
 // Get contrast color
 function getContrastColor(hexcolor) {
+    if (!hexcolor) return '#000000';
+    
     hexcolor = hexcolor.replace("#", "");
+    if (hexcolor.length !== 6) return '#000000';
+    
     const r = parseInt(hexcolor.substr(0, 2), 16);
     const g = parseInt(hexcolor.substr(2, 2), 16);
     const b = parseInt(hexcolor.substr(4, 2), 16);
@@ -257,6 +303,8 @@ function getContrastColor(hexcolor) {
 
 // Calculate reading time
 function calculateReadingTime(text) {
+    if (!text) return 0;
+    
     const wordsPerMinute = 200;
     const words = text.trim().split(/\s+/).length;
     const time = Math.ceil(words / wordsPerMinute);
@@ -270,7 +318,18 @@ function exportData() {
 
 // Import data
 function importData(file) {
-    storage.importData(file);
+    if (!file) {
+        storage.showNotification('Please select a file', 'error');
+        return;
+    }
+    
+    storage.importData(file)
+        .then(() => {
+            setTimeout(() => window.location.reload(), 1000);
+        })
+        .catch(error => {
+            console.error('Import failed:', error);
+        });
 }
 
 // Clear all data
@@ -280,20 +339,19 @@ function clearAllData() {
 
 // Check if first time user
 function checkFirstTimeUser() {
-    const data = storage.getUserData();
-    const userCourses = data.userCourses || [];
+    const userCourses = storage.getUserCourses();
     
-    if (userCourses.length === 0 && window.location.pathname.includes('index.html')) {
+    if (userCourses.length === 0) {
         // Show welcome tip after a delay
         setTimeout(() => {
-            storage.showNotification('💡 Tip: Start by creating your first course! Click "Create Course" above.', 'info');
+            storage.showNotification('🎉 Welcome to LearnHub! Click "Create Course" to start.', 'info');
         }, 2000);
     }
 }
 
 // Format file size
 function formatFileSize(bytes) {
-    if (bytes === 0) return '0 Bytes';
+    if (!bytes || bytes === 0) return '0 Bytes';
     const k = 1024;
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
@@ -311,8 +369,8 @@ function isTablet() {
 
 // PWA Installation
 function installPWA() {
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js').then(() => {
+    if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+        navigator.serviceWorker.register('/service-worker.js').then(() => {
             console.log('Service Worker registered');
         }).catch(err => {
             console.log('Service Worker registration failed:', err);
@@ -324,3 +382,75 @@ function installPWA() {
 if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
     window.addEventListener('load', installPWA);
 }
+
+// Global view course function
+function viewCourse(courseId) {
+    if (!courseId) {
+        storage.showNotification('Invalid course ID', 'error');
+        return;
+    }
+    
+    window.location.href = `course.html?id=${courseId}`;
+}
+
+// Global edit course function
+function editCourse(courseId) {
+    if (!courseId) {
+        storage.showNotification('Invalid course ID', 'error');
+        return;
+    }
+    
+    window.location.href = `create-course.html?id=${courseId}`;
+}
+
+// Global delete course function
+function deleteCourse(courseId, courseTitle) {
+    if (!courseId) {
+        storage.showNotification('Invalid course ID', 'error');
+        return;
+    }
+    
+    if (confirm(`Are you sure you want to delete "${courseTitle || 'this course'}"? This action cannot be undone.`)) {
+        const success = storage.deleteUserCourse(courseId);
+        if (success) {
+            storage.showNotification('Course deleted successfully', 'success');
+            setTimeout(() => window.location.reload(), 1000);
+        } else {
+            storage.showNotification('Failed to delete course', 'error');
+        }
+    }
+}
+
+// Add global event listener for dynamic content
+document.addEventListener('click', function(e) {
+    // Handle all button clicks with data attributes
+    if (e.target.closest('[data-action]')) {
+        const element = e.target.closest('[data-action]');
+        const action = element.getAttribute('data-action');
+        const courseId = element.getAttribute('data-course-id');
+        const courseTitle = element.getAttribute('data-course-title');
+        
+        switch(action) {
+            case 'view-course':
+                viewCourse(courseId);
+                break;
+            case 'edit-course':
+                editCourse(courseId);
+                break;
+            case 'delete-course':
+                deleteCourse(courseId, courseTitle);
+                break;
+        }
+    }
+});
+
+// Error handling for unhandled promises
+window.addEventListener('unhandledrejection', function(event) {
+    console.error('Unhandled promise rejection:', event.reason);
+    storage.showNotification('An error occurred. Please try again.', 'error');
+});
+
+// Error handling for uncaught errors
+window.addEventListener('error', function(event) {
+    console.error('Uncaught error:', event.error);
+});
